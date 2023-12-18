@@ -124,24 +124,20 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[args[0]]()
+
+        # Handles parameters passed on CLI
         for param in args[1:]:
             # extracts key
             key = param.split('=')[0]
             value = param.split('=')[1]
             if '"' in value:
-                print(value)
-                if "\\\"" in value:
-                    value = value.replace("\\\"", "--*")
                 value = value.replace('"', '').replace('_', ' ')
-                value = value.replace("--*", '\"')
-                print(value)
             elif '"' not in value and '.' in value:
                 value = float(value)
             if value and key:
                 new_instance.__setattr__(key, value)
-        storage.save()
+        new_instance.save()
         print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -172,7 +168,7 @@ class HBNBCommand(cmd.Cmd):
 
         key = c_name + "." + c_id
         try:
-            print(storage._FileStorage__objects[key])
+            print(storage.all()[key])
         except KeyError:
             print("** no instance found **")
 
@@ -223,12 +219,16 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all(eval(args)).items():
                 if k.split('.')[0] == args:
-                    print_list.append(str(v))
+                    obj = storage.classes[k.split('.')[0]](**v)
+                    del obj.__dict__['_sa_instance_state']
+                    print_list.append(str(obj))
         else:
-            for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
+            for k, v in storage.all().items():
+                obj = storage.classes[k.split('.')[0]](**v.to_dict())
+                del obj.__dict__['_sa_instance_state']
+                print_list.append(str(obj))
 
         print(print_list)
 
@@ -240,7 +240,7 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, args):
         """Count current number of class instances"""
         count = 0
-        for k, v in storage._FileStorage__objects.items():
+        for k, v in storage.all().items():
             if args == k.split('.')[0]:
                 count += 1
         print(count)

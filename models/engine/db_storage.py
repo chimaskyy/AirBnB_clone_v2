@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from models.base_model import Base
+from models.base_model import Base, BaseModel
 import sqlalchemy
 from sqlalchemy import (create_engine)
 from sqlalchemy.orm import sessionmaker, scoped_session
@@ -18,6 +18,11 @@ class DBStorage:
 
     __engine = None
     __session = None
+    classes = {
+                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
+                    'State': State, 'City': City, 'Amenity': Amenity,
+                    'Review': Review
+              }
 
 
     def __init__(self):
@@ -40,9 +45,10 @@ class DBStorage:
         else:
             objs_tuple = self.__session.query(cls).all()
 
-        for obj_tuple in objs_tuple:
-            for obj in obj_tuple:
-                all_objects.update({obj.__class__ + '.' + obj.id: obj.to_dict()})
+        # Iterates through all records in the table
+        for obj in objs_tuple:
+            all_objects.update({obj.to_dict()['__class__']+ '.' +\
+                               obj.id: obj.to_dict()})
 
         return all_objects
 
