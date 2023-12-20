@@ -143,4 +143,4 @@ Usage: <class_name>.update(<_id>, <dictionary>)
 
 # Airbnb MySQL
 The storage engine was changed using SQLAlchemy
-All the classes were updated at this stage of production
+All the classes were updated to prepare database table at this stage of production
