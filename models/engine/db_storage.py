@@ -24,7 +24,6 @@ class DBStorage:
                     'Review': Review
               }
 
-
     def __init__(self):
         user = os.getenv('HBNB_MYSQL_USER')
         database = os.getenv('HBNB_MYSQL_DB')
@@ -41,13 +40,14 @@ class DBStorage:
 
         all_objects = {}
         if not cls:
-            objs_tuple = self.__session.query(User, State, City, Amenity, Place, Review).all()
+            objs_tuple = self.__session.query(User, State, City,
+                                              Amenity, Place, Review).all()
         else:
             objs_tuple = self.__session.query(cls).all()
 
         # Iterates through all records in the table
         for obj in objs_tuple:
-            all_objects.update({obj.to_dict()['__class__']+ '.' +\
+            all_objects.update({obj.to_dict()['__class__'] + '.' +
                                obj.id: obj.to_dict()})
 
         return all_objects
