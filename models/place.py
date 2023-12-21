@@ -21,9 +21,9 @@ class Place(BaseModel, Base):
     amenity_ids = []
     place_amenities = Table('place_amenity', Base.metadata,
                             Column('place_id', ForeignKey('places.id'),
-                                   primary_key=True),
+                                   primary_key=True, nullable=False),
                             Column('amenity_id', ForeignKey('amenities.id'),
-                                   primary_key=True))
+                                   primary_key=True, nullable=False))
 
     # table realationships
 
