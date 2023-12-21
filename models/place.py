@@ -16,8 +16,8 @@ class Place(BaseModel, Base):
     number_bathrooms = Column(Integer, nullable=False, default=0)
     max_guest = Column(Integer, nullable=False, default=0)
     price_by_night = Column(Integer, nullable=False, default=0)
-    latitude = Column(Float, nullable=False, default=0)
-    longitude = Column(Float, nullable=False, default=0)
+    latitude = Column(Float, default=0)
+    longitude = Column(Float, default=0)
     amenity_ids = []
     place_amenities = Table('place_amenity', Base.metadata,
                             Column('place_id', ForeignKey('places.id'),
@@ -32,7 +32,7 @@ class Place(BaseModel, Base):
     reviews = relationship("Review", back_populates='places',
                            cascade='all, delete-orphan')
     amenities = relationship("Amenity", secondary=place_amenities,
-                             back_populates="places")
+                             back_populates="places", viewonly=False)
 
     @property
     def amenities(self):
