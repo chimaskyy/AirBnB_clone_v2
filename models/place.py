@@ -16,13 +16,13 @@ class Place(BaseModel, Base):
     number_bathrooms = Column(Integer, nullable=False, default=0)
     max_guest = Column(Integer, nullable=False, default=0)
     price_by_night = Column(Integer, nullable=False, default=0)
-    latitude = Column(Float, default=0)
-    longitude = Column(Float, default=0)
+    latitude = Column(Float)
+    longitude = Column(Float)
     amenity_ids = []
-    place_amenities = Table('place_amenity', Base.metadata,
-                            Column('place_id', ForeignKey('places.id'),
+    place_amenity = Table('place_amenity', Base.metadata,
+                          Column('place_id', ForeignKey('places.id'),
                                    primary_key=True, nullable=False),
-                            Column('amenity_id', ForeignKey('amenities.id'),
+                          Column('amenity_id', ForeignKey('amenities.id'),
                                    primary_key=True, nullable=False))
 
     # table realationships
@@ -31,18 +31,5 @@ class Place(BaseModel, Base):
     users = relationship("User", back_populates='places')
     reviews = relationship("Review", back_populates='places',
                            cascade='all, delete-orphan')
-    amenities = relationship("Amenity", secondary=place_amenities,
+    amenities = relationship("Amenity", secondary=place_amenity,
                              back_populates="places", viewonly=False)
-
-    @property
-    def amenities(self):
-        """ retreives amenity instances """
-
-        return self.amenities
-
-    @amenities.setter
-    def amenities(self, obj):
-        """ Appends Amenity attributes to amenity_ids """
-
-        if isinstance(obj, Amenity):
-            self.amenity_ids.append(obj)
