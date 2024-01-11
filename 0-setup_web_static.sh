@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # Installs Ningx Web Server if not installed and Configures it to server web static contents
-# shellcheck disable=SC2154
 
 if ! dpkg -l | grep -q 'nginx' ; then
 	sudo apt-get update
