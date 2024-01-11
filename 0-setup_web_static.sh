@@ -51,7 +51,7 @@ then
 fi
 sudo tee /etc/nginx/sites-available/default > /dev/null << EOF
 server {
-	listen :80 default_server;
+	listen 80 default_server;
 	server_name techsorce.tech;
 	
 	root /data/web_static/current/;
