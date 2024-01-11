@@ -59,7 +59,8 @@ server {
 		alias /data/web_static/current/;
 	}
 	location / {
-		try_files \$uri \$uri/ =404; 
+		try_files \$uri \$uri/ =404;
+		add_header X-served-BY \$hostname;
 	}
 	listen [::]:80 default_server;
 }
