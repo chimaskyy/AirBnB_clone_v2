@@ -33,23 +33,25 @@ then
 fi
 
 sudo tee /data/web_static/releases/test/index.html > /dev/null << EOF 
-AirBnB Clone
+Holberton School
 EOF
-sudo ln -s /data/web_static/releases/test/ /data/web_static/current
-sudo chown -R ubuntu:ubuntu /data/
 
 if [ -h /data/web_static/current ];
 then
 	rm /data/web_static/current
 fi
+sudo ln -s /data/web_static/releases/test/ /data/web_static/current
+sudo chown -R ubuntu:ubuntu /data/
 # creates a symlink
 
 # Configurations
-
-sudo tee -a /etc/nginx/sites-available/default > /dev/null << EOF
+if [ ! -e /etc/nginx/sites-available/default.bak ];
+then
+	sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+fi
+sudo tee /etc/nginx/sites-available/default > /dev/null << EOF
 server {
-	listen 80;
-	listen [::]:80;
+	listen :80 default_server;
 	server_name techsorce.tech;
 	
 	root /data/web_static/current/;
@@ -58,8 +60,9 @@ server {
 		alias /data/web_static/current/;
 	}
 	location / {
-		try_files $uri $uri/ =404; 
+		try_files \$uri \$uri/ =404; 
 	}
+	listen [::]:80 default_server;
 }
 EOF
 sudo service nginx restart
