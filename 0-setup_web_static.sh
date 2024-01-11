@@ -18,7 +18,7 @@ fi
 
 if [ ! -e /data/web_static/releases/ ];
 then
-	sudo mkdir /data/web_static/releases/test/
+	sudo mkdir -p /data/web_static/releases/test
 fi
 
 if [ ! -e /data/web_static/shared/ ];
