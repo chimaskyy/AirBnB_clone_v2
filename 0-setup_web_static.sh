@@ -8,9 +8,30 @@ if ! dpkg -l | grep -q 'nginx' ; then
 fi
 
 # creates files and directories for the static content
+if [ ! -e /data/ ];
+then
+	sudo mkdir /data/
+fi
 
-sudo mkdir -p /data/web_static/releases/test/
-sudo mkdir -p /data/web_static/shared/
+if  [ ! -e /data/web_static/ ];then
+	sudo mkdir /data/web_static/
+fi
+
+if [ ! -e /data/web_static/releases/ ];
+then
+	sudo mkdir /data/web_static/releases/test/
+fi
+
+if [ ! -e /data/web_static/shared/ ];
+then
+	sudo mkdir /data/web_static/shared/
+fi
+
+if [ ! -e /data/web_static/releases/test/ ];
+then
+	sudo mkdir /data/web_static/releases/test/
+fi
+
 sudo tee /data/web_static/releases/test/index.html > /dev/null << EOF 
 AirBnB Clone
 EOF
@@ -35,7 +56,6 @@ server {
 	index index.html;
 	location /hbnb_static {
 		alias /data/web_static/current/;
-		autoindex off;
 	}
 	location / {
 		try_files $uri $uri/ =404; 
