@@ -32,7 +32,13 @@ then
 fi
 
 sudo tee /data/web_static/releases/test/index.html > /dev/null << EOF 
-Holberton School
+<html>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
+</html>
 EOF
 
 if [ -h /data/web_static/current ];
