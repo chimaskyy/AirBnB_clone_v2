@@ -7,6 +7,7 @@ import os
 
 env.hosts = ['18.234.253.75', '54.174.123.116']
 
+
 def do_deploy(archive_path):
     """
     deploy function
@@ -28,6 +29,7 @@ def do_deploy(archive_path):
         run('mkdir -p /data/web_static/releases/{}'.format(new_release))
         run('tar -xvf /tmp/{} -C /data/web_static/releases/{}'
             .format(archive_path.split('/')[-1], new_release))
+        run('rm /tmp/{}'.format(archive_path.split('/')[-1]))
 
         # Updates Symbolic link
         run('rm /data/web_static/current')
