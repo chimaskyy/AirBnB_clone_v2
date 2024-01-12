@@ -72,3 +72,4 @@ server {
 }
 EOF
 sudo service nginx restart
+exit 0
