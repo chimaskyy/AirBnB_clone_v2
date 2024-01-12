@@ -62,7 +62,7 @@ server {
 	root /data/web_static/current/;
 	index index.html;
 	location /hbnb_static {
-		alias /data/web_static/current/;
+		alias /data/web_static/current/index.html;
 	}
 	location / {
 		try_files \$uri \$uri/ =404;
