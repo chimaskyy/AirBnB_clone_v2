@@ -58,12 +58,12 @@ sudo tee /etc/nginx/sites-available/default > /dev/null << EOF
 server {
 	listen 80 default_server;
 	server_name techsorce.tech;
-	
-	root /data/web_static/current/;
+
 	index index.html;
 	location /hbnb_static {
-		alias /data/web_static/current/index.html;
+		alias /data/web_static/current/;
 	}
+	root /data/web_static/current/;
 	location / {
 		try_files \$uri \$uri/ =404;
 		add_header X-served-BY \$hostname;
