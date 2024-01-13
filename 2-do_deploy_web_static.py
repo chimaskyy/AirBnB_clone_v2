@@ -10,11 +10,13 @@ env.hosts = ['18.234.253.75', '54.174.123.116']
 
 def do_deploy(archive_path):
     """
-    deploy function
+    This functions transfers compressed web_static content to
+    the specified hosts server, decompresses them and deploy then
+    for the web_server to serve
 
-    archive_path: path to the archive on the local machine
-    return: True if operations worked correctly
-            False if operations failed or archive_path does not exist
+    Argument: string -> path to archived contents
+    return: True if all operations were successful
+            False if any failed or archive passed doesn't exist.
     """
 
     if not os.path.exists(archive_path):
