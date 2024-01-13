@@ -47,7 +47,7 @@ def do_deploy(archive_path):
         # Decompresses Archive
         new_release = archive_path.split('/')[-1].replace('.tgz', '')
         run('mkdir -p /data/web_static/releases/{}'.format(new_release))
-        run('tar -xvf /tmp/{} -C /data/web_static/releases/{}'
+        run('tar -xf /tmp/{} -C /data/web_static/releases/{}'
             .format(archive_path.split('/')[-1], new_release))
         run('rm /tmp/{}'.format(archive_path.split('/')[-1]))
 
@@ -57,6 +57,7 @@ def do_deploy(archive_path):
             .format(new_release))
         run('mv /data/web_static/releases/{}/web_static/* '
             .format(new_release) + '/data/web_static/current')
+        run('echo "Holberton School" > /data/web_static/current/my_index.html')
         run('rm -rf /data/web_static/releases/{}/web_static'
             .format(new_release))
         print('New version deployed!')
