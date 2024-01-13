@@ -8,26 +8,6 @@ import os
 
 env.hosts = ['18.234.253.75', '54.174.123.116']
 
-
-def do_pack():
-    """
-    genrates archive from web_static directory.
-    """
-
-    dir_name = 'web_static'
-    if not os.path.exists(dir_name):
-        return None
-    date = datetime.now()
-    date_string = date.strftime('%Y%m%d%H%M%S')
-    dir_name = dir_name + date_string
-    if not os.path.exists('versions'):
-        local('mkdir versions', capture=False)
-    archive_path = 'versions/{}.tgz'.format(dir_name)
-    local('tar -cvzf {} web_static'.format(archive_path), capture=False)
-
-    return os.path.abspath(archive_path)
-
-
 def do_deploy(archive_path):
     """
     deploy function
@@ -47,7 +27,7 @@ def do_deploy(archive_path):
         # Decompresses Archive
         new_release = archive_path.split('/')[-1].replace('.tgz', '')
         run('mkdir -p /data/web_static/releases/{}'.format(new_release))
-        run('tar -xvf /tmp/{} -C /data/web_static/releases/{}'
+        run('tar -xf /tmp/{} -C /data/web_static/releases/{}'
             .format(archive_path.split('/')[-1], new_release))
         run('rm /tmp/{}'.format(archive_path.split('/')[-1]))
 
@@ -55,6 +35,7 @@ def do_deploy(archive_path):
         run('rm /data/web_static/current')
         run('ln -s /data/web_static/releases/{} /data/web_static/current'
             .format(new_release))
+        run('echo "Holberton School" > /data/web_static/current/my_index.html')
         run('mv /data/web_static/releases/{}/web_static/* '
             .format(new_release) + '/data/web_static/current')
         run('rm -rf /data/web_static/releases/{}/web_static'
