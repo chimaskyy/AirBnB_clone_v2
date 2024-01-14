@@ -4,10 +4,11 @@ Deploys archive to remote server.
 """
 
 from fabric.api import put, run, env
-from datetime import datetime
 import os
 
 env.hosts = ['18.234.253.75', '54.174.123.116']
+env.user = 'ubuntu'
+
 
 def do_deploy(archive_path):
     """
@@ -43,7 +44,8 @@ def do_deploy(archive_path):
             .format(new_release) + '/data/web_static/current')
         run('rm -rf /data/web_static/releases/{}/web_static'
             .format(new_release))
+        print("New version deployed")
         return True
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Deployment Failed")
         return False
