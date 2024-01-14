@@ -13,7 +13,7 @@ EOF
 $config_content = @("EOF")
 server {
     listen 80 default_server;
-    loaction /hbnb_static {
+    loaction /hbnb_static/ {
         alias /data/web_static/current/;
 	index index.html;
     }
