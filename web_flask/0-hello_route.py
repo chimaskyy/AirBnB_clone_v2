@@ -11,7 +11,7 @@ def index():
     """
     routes the home directory
     """
-    return "Hello HBNB"
+    return "Hello HBNB!"
 
 
 if __name__ == '__main__':
