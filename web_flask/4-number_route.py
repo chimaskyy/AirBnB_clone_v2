@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """
-flask app Routes /c/
+flask app Routes /, /c/, python, /n
 """
 
-from flask import Flask
+from flask import Flask, abort
 
 app = Flask(__name__)
 
@@ -36,6 +36,14 @@ def python(text='is cool'):
     """ routes /python/<text> """
     text = text.replace('_', ' ')
     return "Python {}".format(text)
+
+
+@app.route('/number/<n>', strict_slashes=False)
+def number(n):
+    """ routes /number/<n>"""
+    if type(eval(n)) == int:
+        return "{} is a number".format(n)
+    abort(404)
 
 
 if __name__ == '__main__':
