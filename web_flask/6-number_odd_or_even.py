@@ -59,7 +59,8 @@ def number_even_or_odd(n):
     """routes /number_even_or_odd/<n>"""
     if type(eval(n)) == int:
         return render_template('6-number_odd_or_even.html', number=eval(n))
-    abort(404)
+    else:
+        abort(404)
 
 
 if __name__ == '__main__':

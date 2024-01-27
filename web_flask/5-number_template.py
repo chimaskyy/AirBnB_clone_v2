@@ -51,7 +51,8 @@ def number_template(n):
     """ routes /number/<n>"""
     if type(eval(n)) == int:
         return render_template('5-number.html', number=n)
-    abort(404)
+    else:
+        abort(404)
 
 
 if __name__ == '__main__':
