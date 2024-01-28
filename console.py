@@ -10,6 +10,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+import os
 
 
 class HBNBCommand(cmd.Cmd):
@@ -226,7 +227,10 @@ class HBNBCommand(cmd.Cmd):
                     print_list.append(str(obj))
         else:
             for k, v in storage.all().items():
-                obj = storage.classes[k.split('.')[0]](**v.to_dict())
+                if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+                    obj = storage.classes[k.split('.')[0]](**v)
+                else:
+                    obj = storage.classes[k.split('.')[0]](**v.to_dict())
                 del obj.__dict__['_sa_instance_state']
                 print_list.append(str(obj))
 

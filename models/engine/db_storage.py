@@ -19,7 +19,7 @@ class DBStorage:
     __engine = None
     __session = None
     classes = {
-                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
+                    'User': User, 'Place': Place,
                     'State': State, 'City': City, 'Amenity': Amenity,
                     'Review': Review
               }
@@ -40,15 +40,18 @@ class DBStorage:
 
         all_objects = {}
         if not cls:
-            objs_tuple = self.__session.query(User, State, City,
-                                              Amenity, Place, Review).all()
+            for cls_ in self.classes.values():
+                objs_tuple = self.__session.query(cls_).all()
+                for obj in objs_tuple:
+                    all_objects.update({obj.to_dict()['__class__'] + '.' +
+                                       obj.id: obj.to_dict()})
         else:
             objs_tuple = self.__session.query(cls).all()
 
         # Iterates through all records in the table
-        for obj in objs_tuple:
-            all_objects.update({obj.to_dict()['__class__'] + '.' +
-                               obj.id: obj.to_dict()})
+            for obj in objs_tuple:
+                all_objects.update({obj.to_dict()['__class__'] + '.' +
+                                   obj.id: obj.to_dict()})
 
         return all_objects
 

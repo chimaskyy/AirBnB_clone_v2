@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-""" """
+""" tests the User class on creation deletion, Update etc"""
 from tests.test_models.test_base_model import test_basemodel
 from models.user import User
 
 
 class test_User(test_basemodel):
-    """ """
+    """ unittest class for User objects"""
 
     def __init__(self, *args, **kwargs):
         """ """
