@@ -29,7 +29,7 @@ class FileStorage:
             cls_dict = {}
             for k, v in FileStorage.__objects.items():
                 if cls.__name__ in k:
-                    cls_dict.update({k: v.to_dict()})
+                    cls_dict.update({k: cls(**v.to_dict())})
 
         return cls_dict
 
@@ -66,3 +66,8 @@ class FileStorage:
             obj_key = obj.to_dict()['__class__'] + '.' + obj.id
             if obj_key in FileStorage.__objects.keys():
                 del FileStorage.__objects[obj_key]
+
+    def close(self):
+        """ Closes Storage session """
+
+        self.reload()
