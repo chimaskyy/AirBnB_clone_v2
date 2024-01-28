@@ -17,8 +17,8 @@ class State(BaseModel, Base):
     else:
         @property
         def cities(self):
-            from models import storage
             """Fetches list of all related City objects to state instance."""
+            from models import storage
 
             state_cities = []
             for city in storage.all(City).values():
