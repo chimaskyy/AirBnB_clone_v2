@@ -49,9 +49,11 @@ def number(n):
 @app.route('/number_template/<n>', strict_slashes=False)
 def number_template(n):
     """ routes /number/<n>"""
-    if type(eval(n)) == int:
-        return render_template('5-number.html', number=n)
-    abort(404)
+    try:
+        if type(eval(n)) == int:
+            return render_template('5-number.html', number=n)
+    except NameError as e:
+        abort(404)
 
 
 if __name__ == '__main__':

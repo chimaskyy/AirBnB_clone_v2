@@ -41,9 +41,11 @@ def python(text='is cool'):
 @app.route('/number/<n>', strict_slashes=False)
 def number(n):
     """ routes /number/<n>"""
-    if type(eval(n)) == int:
-        return "{} is a number".format(n)
-    abort(404)
+    try:
+        if type(eval(n)) == int:
+            return "{} is a number".format(n)
+    except NameError:
+        abort(404)
 
 
 if __name__ == '__main__':
