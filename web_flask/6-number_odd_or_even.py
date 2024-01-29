@@ -57,9 +57,12 @@ def number_template(n):
 @app.route('/number_odd_or_even/<n>', strict_slashes=False)
 def number_even_or_odd(n):
     """routes /number_even_or_odd/<n>"""
-    if type(eval(n)) == int:
-        return render_template('6-number_odd_or_even.html', number=eval(n))
-    else:
+    try:
+        if type(eval(n)) == int:
+            return render_template('6-number_odd_or_even.html', number=eval(n))
+        else:
+            abort(404)
+    except NameError:
         abort(404)
 
 

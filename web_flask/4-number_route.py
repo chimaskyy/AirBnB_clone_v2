@@ -44,6 +44,8 @@ def number(n):
     try:
         if type(eval(n)) == int:
             return "{} is a number".format(n)
+        else:
+            abort(404)
     except NameError:
         abort(404)
 

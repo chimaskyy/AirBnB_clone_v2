@@ -52,6 +52,8 @@ def number_template(n):
     try:
         if type(eval(n)) == int:
             return render_template('5-number.html', number=n)
+        else:
+            abort(404)
     except NameError as e:
         abort(404)
 
