@@ -43,7 +43,7 @@ def number(n):
     """ routes /number/<n>"""
     if type(eval(n)) == int:
         return "{} is a number".format(n)
-    # abort(404)
+    abort(404)
 
 
 if __name__ == '__main__':
