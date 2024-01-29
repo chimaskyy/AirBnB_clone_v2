@@ -2,7 +2,7 @@
 """ Routes for list of states. """
 
 from flask import Flask, render_template
-from ..models import storage
+from models import storage
 
 app = Flask(__name__)
 
