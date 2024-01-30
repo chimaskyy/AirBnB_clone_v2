@@ -44,14 +44,14 @@ class DBStorage:
                 objs_tuple = self.__session.query(cls_).all()
                 for obj in objs_tuple:
                     all_objects.update({obj.to_dict()['__class__'] + '.' +
-                                       obj.id: obj.to_dict()})
+                                       obj.id: obj})
         else:
             objs_tuple = self.__session.query(cls).all()
 
         # Iterates through all records in the table
             for obj in objs_tuple:
                 all_objects.update({obj.to_dict()['__class__'] + '.' +
-                                   obj.id: obj.to_dict()})
+                                   obj.id: obj})
 
         return all_objects
 

@@ -227,9 +227,6 @@ class HBNBCommand(cmd.Cmd):
                     print_list.append(str(obj))
         else:
             for k, v in storage.all().items():
-                if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-                    obj = storage.classes[k.split('.')[0]](**v)
-                else:
                     obj = storage.classes[k.split('.')[0]](**v.to_dict())
                 del obj.__dict__['_sa_instance_state']
                 print_list.append(str(obj))
