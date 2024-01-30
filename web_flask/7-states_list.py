@@ -15,8 +15,8 @@ def states_list():
     states = storage.all(State)
     states = dict(sorted(states.items(), key=lambda item: item[1]['name']))
     return render_template('7-states_list.html',
-                           states=sorted(storage.all(State).values()))
+                           states=states.values())
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug=True)
