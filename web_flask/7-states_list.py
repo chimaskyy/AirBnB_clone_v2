@@ -2,6 +2,8 @@
 """ Routes for list of states. """
 
 from flask import Flask, render_template
+from models import storage
+from models.state import State
 
 app = Flask(__name__)
 
@@ -9,8 +11,6 @@ app = Flask(__name__)
 @app.route('/states_list', strict_slashes=False)
 def states_list():
     """ Routes /states_list page."""
-    from models import storage
-    from models.state import State
 
     states = storage.all(State)
     states = dict(sorted(states.items(), key=lambda item: item[1]['name']))
@@ -19,4 +19,4 @@ def states_list():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0')
