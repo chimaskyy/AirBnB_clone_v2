@@ -18,7 +18,7 @@ def cities_by_states():
 
 
 @app.teardown_appcontext
-def session_scope(appcontext):
+def session_scope(exception):
     """ Ends a storage session starting another"""
     storage.close()
 
