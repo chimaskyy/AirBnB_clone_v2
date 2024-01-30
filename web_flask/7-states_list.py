@@ -21,5 +21,7 @@ def states_list():
 def tear_down(exception):
     """ Cleans up session"""
     storage.close()
+
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0')
