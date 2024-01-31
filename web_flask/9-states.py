@@ -22,7 +22,7 @@ def states(id=None):
         id = 'State.' + id
         return render_template('9-states.html', states=states, id=id)
     elif id and ('State.' + id) not in states.keys():
-        abort(404)
+        return "<H1>Not Found</H1>"
     return render_template('9-states.html', states=states.values())
 
 
