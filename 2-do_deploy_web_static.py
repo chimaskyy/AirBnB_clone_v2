@@ -8,7 +8,7 @@ from fabric.api import local, run, put, env
 from datetime import datetime
 import os
 
-env.hosts = ["54.175.8.50", "54.237.39.190"]
+env.hosts = ["54.210.173.228", "54.237.224.86"]
 env.user = "ubuntu"
 env.key = "~/.ssh/id_rsa"
 
@@ -43,18 +43,18 @@ def do_deploy(archive_path):
         # path_ = archive_path.split('/')[-1]
         # path_without_ext = path_.replace('.tgz','')
         
+        run("mkdir -p /data/web_static/releases/{}/".format(path_without_ext))
         # uncompress file
-        run("tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(path_, path_without_ext))
+        run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(path_, path_without_ext))
         # Delete archive from web server
-        run("rm /tmp/{}".format(path_))
-        run("mv /data/web_static/releases/{}/web_static/*\
-                /data/web_static/releases/{}/".format(path_, path_without_ext))
-        run("rm -rf /data/web_static/releases/{}/web_static".format(path_))
+        run("sudo rm /tmp/{}".format(path_))
+        run('sudo mv /data/web_static/releases/{}/web_static/* /data/web_static/releases/{}/'.format(path_without_ext, path_without_ext))
+        run("sudo rm -rf /data/web_static/releases/{}/web_static".format(path_))
 
         # remove symbolic link
-        run("rm -rf /data/web_static/current")
+        run("sudo rm -rf /data/web_static/current")
         # create new symlink linked to the new server config
-        run("ln -sf /data/web_static/releases/{} /data/web_static/current".format(path_without_ext))
+        run("sudo ln -s /data/web_static/releases/{} /data/web_static/current".format(path_without_ext))
         return True
     except Exception as e:
         print (f"Erro: {e}")
