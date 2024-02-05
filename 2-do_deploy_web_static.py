@@ -43,17 +43,18 @@ def do_deploy(archive_path):
         # path_ = archive_path.split('/')[-1]
         # path_without_ext = path_.replace('.tgz','')
 
-        run("mkdir -p /data/web_static/releases/{}/".format(path_without_ext))
+        run("sudo mkdir -p /data/web_static/releases/\
+                {}/".format(path_without_ext))
         # uncompress file
         run("sudo tar -xzf /tmp/{} \
             -C /data/web_static/releases/{}/".format(path_, path_without_ext))
         # Delete archive from web server
         run("sudo rm /tmp/{}".format(path_))
         run('sudo mv /data/web_static/releases/{}/web_static/* \
-                /data/web_static/releases/{}\
-                /'.format(path_without_ext, path_without_ext))
-        run("sudo rm -rf /data/web_static/releases/{}\
-                /web_static".format(path_))
+                /data/web_static/releases/\
+                {}/'.format(path_without_ext, path_without_ext))
+        run("sudo rm -rf /data/web_static/releases/\
+                {}/web_static".format(path_))
 
         # remove symbolic link
         run("sudo rm -rf /data/web_static/current")
