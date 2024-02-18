@@ -228,8 +228,8 @@ class HBNBCommand(cmd.Cmd):
         else:
             for k, v in storage.all().items():
                     obj = storage.classes[k.split('.')[0]](**v.to_dict())
-                del obj.__dict__['_sa_instance_state']
-                print_list.append(str(obj))
+            del obj.__dict__['_sa_instance_state']
+            print_list.append(str(obj))
 
         print(print_list)
 
