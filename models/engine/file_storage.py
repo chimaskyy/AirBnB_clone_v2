@@ -67,7 +67,6 @@ class FileStorage:
             if obj_key in FileStorage.__objects.keys():
                 del FileStorage.__objects[obj_key]
 
-   """ def close(self):
+    def close(self):
         # Closes Storage session
-
-        self.reload()"""
+        self.reload()
