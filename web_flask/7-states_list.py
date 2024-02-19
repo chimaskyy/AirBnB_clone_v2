@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-
+"""Importing Flask to run the web app
+Routes for list of states. """
 
 from flask import Flask, render_template
 from models import storage
@@ -14,7 +15,6 @@ def tear_down(exception):
     """Remove the current SQLAlchemy Session
     after each request"""
     storage.close()
-
 
 
 @app.route("/states_list", strict_slashes=False)

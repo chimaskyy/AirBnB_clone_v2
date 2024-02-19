@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-
+"""Importing Flask to run the web app
+Routes for list of city by states. """
 
 from flask import Flask, render_template
 from models import storage
