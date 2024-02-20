@@ -58,6 +58,7 @@ button {
    display: none;
    margin-top: 0%;
    cursor: pointer;
+   /* scroll-behavior: smooth; */
 }
 .popover h2 {
    font-size: 16px;
@@ -73,8 +74,11 @@ li {
 }
 .locations .popover li ul {
    padding-right:10%;
-
-
+}
+.popover {
+	max-height:300px;
+	overflow:hidden;
+	overflow-y:scroll;
 }
  
  
